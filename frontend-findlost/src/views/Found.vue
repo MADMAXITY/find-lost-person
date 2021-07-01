@@ -71,7 +71,7 @@ export default {
             var formdata = new FormData();
             formdata.append("img", files[0]);
 
-            axios.post("http://127.0.0.1:5000/found", formdata).then((res) => {
+            axios.post("/found", formdata).then((res) => {
                 console.log(
                     res["data"]["Status"],
                     res["data"]["Name"],

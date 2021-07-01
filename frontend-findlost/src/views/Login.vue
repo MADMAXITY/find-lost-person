@@ -33,23 +33,21 @@ export default {
                 var formdata = new FormData();
                 formdata.append("Email", this.email);
                 formdata.append("Password", this.password);
-                axios
-                    .post("http://127.0.0.1:5000/login", formdata)
-                    .then((res) => {
-                        console.log(res);
-                        var status = res["data"]["Status"];
-                        if (status == "Success") {
-                            alert("Success!");
-                            this.$router.push("/");
-                        } else {
-                            alert("Error!");
-                        }
-                    });
+                axios.post("/login", formdata).then((res) => {
+                    console.log(res);
+                    var status = res["data"]["Status"];
+                    if (status == "Success") {
+                        alert("Success!");
+                        this.$router.push("/");
+                    } else {
+                        alert("Error!");
+                    }
+                });
             }
         },
     },
     mounted() {
-        axios.post("http://127.0.0.1:5000/isloggedin").then((res) => {
+        axios.post("/isloggedin").then((res) => {
             var status = res["data"]["Status"];
             if (status == "TRUE") {
                 this.isloggedin = true;

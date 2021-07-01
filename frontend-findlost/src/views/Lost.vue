@@ -94,7 +94,7 @@ export default {
             formdata.append("age", this.age);
             formdata.append("gender", this.gender);
 
-            axios.post("http://127.0.0.1:5000/api", formdata).then((res) => {
+            axios.post("/api", formdata).then((res) => {
                 console.log(res);
             });
         },

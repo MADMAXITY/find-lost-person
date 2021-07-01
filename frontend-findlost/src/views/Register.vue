@@ -36,17 +36,15 @@ export default {
                 formdata.append("Name", this.name);
                 formdata.append("Email", this.email);
                 formdata.append("Password", this.password);
-                axios
-                    .post("http://127.0.0.1:5000/register", formdata)
-                    .then((res) => {
-                        var status = res["data"]["Status"];
-                        if (status == "Success") {
-                            alert("Success!");
-                            this.$router.push("/login");
-                        } else {
-                            alert("Error!");
-                        }
-                    });
+                axios.post("/register", formdata).then((res) => {
+                    var status = res["data"]["Status"];
+                    if (status == "Success") {
+                        alert("Success!");
+                        this.$router.push("/login");
+                    } else {
+                        alert("Error!");
+                    }
+                });
             }
         },
     },
