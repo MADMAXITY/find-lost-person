@@ -97,6 +97,8 @@ export default {
             axios.post("/api", formdata).then((res) => {
                 console.log(res);
             });
+            alert("Done");
+            this.$router.push('/');
         },
     },
 };

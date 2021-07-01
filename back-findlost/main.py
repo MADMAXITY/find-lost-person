@@ -3,13 +3,60 @@ from flask_wtf.csrf import CSRFProtect
 import pandas as pd
 from flask_cors import CORS
 import time
+import cv2
+import numpy as np
+import face_recognition
+import os
+from datetime import datetime
+import time
+
+encodeListKnown, classNames = "", ""
+
+
+def findexistence(encodeListKnown, classNames):
+    img = cv2.imread("input.jpg")
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+    facesCurFrame = face_recognition.face_locations(img)
+    encodesCurFrame = face_recognition.face_encodings(img, facesCurFrame)
+    for encodeFace, faceLoc in zip(encodesCurFrame, facesCurFrame):
+        matches = face_recognition.compare_faces(encodeListKnown, encodeFace)
+        faceDis = face_recognition.face_distance(encodeListKnown, encodeFace)
+        matchIndex = np.argmin(faceDis)
+        if matches[matchIndex]:
+            name = classNames[matchIndex]
+            print(f"It's {name}")
+            return name
+        else:
+            return None
+
+
+def findEncodings():
+    path = "Training_images"
+
+    images = []
+    classNames = []
+    myList = os.listdir(path)
+    print(myList)
+    for cl in myList:
+        curImg = cv2.imread(f"{path}/{cl}")
+        images.append(curImg)
+        classNames.append(os.path.splitext(cl)[0])
+    encodeList = []
+
+    for img in images:
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        encode = face_recognition.face_encodings(img)[0]
+        encodeList.append(encode)
+    return encodeList, classNames
+
 
 csrf = CSRFProtect()
 
 app = Flask(__name__)
 CORS(app)
 
-userdata = pd.read_csv("hasheddata.csv")
+userdata = pd.read_csv("Data/hasheddata.csv")
 data = {
     "Email": list(userdata["Email"]),
     "Name": list(userdata["Name"]),
@@ -59,7 +106,7 @@ def register():
         data["Name"].append(user)
         data["Email"].append(email)
         data["Password"].append(password)
-        pd.DataFrame(data).to_csv("hasheddata.csv", index=False)
+        pd.DataFrame(data).to_csv("Data/hasheddata.csv", index=False)
         print(user, email, password)
 
         print("here!")
@@ -88,7 +135,7 @@ def imagegetter():
         phone = request.form["phone"]
         age = request.form["age"]
         gender = request.form["gender"]
-        img.save(f"Images/{name}.jpg")
+        img.save(f"Training_images/{name}.jpg")
 
         data = pd.read_csv("Data/lost.csv")
         data.loc[len(data)] = [name, phone, age, gender]
@@ -102,7 +149,10 @@ def found():
     time.sleep(3)
     if request.method == "POST":
         img = request.files["img"]
-        name = " Shankar"
+        img.save("input.jpg")
+        encodeListKnown, classNames = findEncodings()
+        name = findexistence(encodeListKnown, classNames)
+        print(name)
         data = pd.read_csv("Data/lost.csv")
         if name in list(data["Name"]):
             data = list(data.loc[list(data["Name"]).index(name)])
@@ -118,4 +168,6 @@ def found():
 
 
 if __name__ == "__main__":
+    encodeListKnown, classNames = findEncodings()
+    print("Encoding Complete")
     app.run(debug=True)
