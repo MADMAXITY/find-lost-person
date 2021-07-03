@@ -1,14 +1,16 @@
 <template>
-    <Navbar />
-    <div class="homebody">
-        <div class="form-main">
-            <label>Full Name</label>
-            <input type="text" placeholder="Name" v-model="name" />
-            <label>Email</label>
-            <input type="email" placeholder="Email" v-model="email" />
-            <label>Password</label>
-            <input type="password" v-model="password" />
-            <button @click="register">Submit</button>
+    <div class="bodier">
+        <Navbar />
+        <div class="homebody">
+            <div class="form-main">
+                <label>Full Name</label>
+                <input type="text" placeholder="Name" v-model="name" />
+                <label>Email</label>
+                <input type="email" placeholder="Email" v-model="email" />
+                <label>Password</label>
+                <input type="password" v-model="password" />
+                <button @click="register">Submit</button>
+            </div>
         </div>
     </div>
 </template>
@@ -51,9 +53,15 @@ export default {
 };
 </script>
 <style scoped>
+.bodier {
+    background-image: url("/bg3.jpeg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
 .homebody {
     height: 88vh;
-    background-color: white;
+    /* background-color: white; */
     display: flex;
     justify-content: center;
     align-items: center;

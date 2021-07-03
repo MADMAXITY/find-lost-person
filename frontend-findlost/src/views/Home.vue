@@ -20,9 +20,12 @@ export default {
 };
 </script>
 <style scoped>
+.home {
+    background-image: url("/bg1.jpeg");
+}
 .homebody {
     height: 88vh;
-    background-color: white;
+    /* background-color: white; */
     display: flex;
     justify-content: center;
 }
@@ -49,7 +52,7 @@ export default {
 }
 a {
     text-decoration: none;
-    color: #39a2db;
+    color: white;
 }
 a:hover {
     background-color: #39a2db;
@@ -60,7 +63,7 @@ a:hover {
     font-size: 1.5rem;
     font-weight: 400;
     padding: 1rem;
-    border: 1px solid black;
+    border: 1px solid white;
     border-radius: 0.5rem;
 }
 .lost_found:hover {

@@ -1,33 +1,35 @@
 <template>
-    <Navbar />
-    <div class="homebody">
-        <div class="formbody">
-            <div class="label-mis">Enter Details of found person</div>
+    <div class="bodier">
+        <Navbar />
+        <div class="homebody">
+            <div class="formbody">
+                <div class="label-mis">Enter Details of found person</div>
 
-            <div class="detailtab">
-                <label for="img" class="imglabel">Select image:</label>
-                <input
-                    ref="fileInput"
-                    type="file"
-                    id="img"
-                    name="img"
-                    class="imginput"
-                    @input="pickFile"
-                />
+                <div class="detailtab">
+                    <label for="img" class="imglabel">Select image:</label>
+                    <input
+                        ref="fileInput"
+                        type="file"
+                        id="img"
+                        name="img"
+                        class="imginput"
+                        @input="pickFile"
+                    />
 
-                <button @click="submitter">Submit</button>
-                <div class="label-wait" v-if="waitchecker">
-                    Please Wait while the system is checking
-                </div>
-                <div class="founddata" v-if="found == true">
-                    <div class="confirm">Person Found in database</div>
-                    <div class="details">Name : {{ Name }}</div>
-                    <div class="details">Phone : {{ Phone }}</div>
-                    <div class="details">Age : {{ Age }}</div>
-                    <div class="details">Gender : {{ Gender }}</div>
-                </div>
-                <div class="founddata" v-if="found == 'Not Found'">
-                    <div class="confirm">Person not found in database</div>
+                    <button @click="submitter">Submit</button>
+                    <div class="label-wait" v-if="waitchecker">
+                        Please Wait while the system is checking
+                    </div>
+                    <div class="founddata" v-if="found == true">
+                        <div class="confirm">Person Found in database</div>
+                        <div class="details">Name : {{ Name }}</div>
+                        <div class="details">Phone : {{ Phone }}</div>
+                        <div class="details">Age : {{ Age }}</div>
+                        <div class="details">Gender : {{ Gender }}</div>
+                    </div>
+                    <div class="founddata" v-if="found == 'Not Found'">
+                        <div class="confirm">Person not found in database</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -95,9 +97,12 @@ export default {
 };
 </script>
 <style scoped>
+.bodier {
+    background-image: url("/bg2.jpeg");
+}
 .homebody {
     height: 88vh;
-    background-color: white;
+    /* background-color: white; */
     display: flex;
     justify-content: center;
     align-items: flex-start;

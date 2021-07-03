@@ -47,7 +47,7 @@ export default {
 </script>
 <style scoped>
 .navbar {
-    background-color: white;
+    background-color: transparent;
     width: 100%;
     display: flex;
     height: 12vh;
